@@ -3,6 +3,8 @@ package com.cliniccore.controller;
 import com.cliniccore.entity.User;
 import com.cliniccore.service.UserService;
 import org.springframework.web.bind.annotation.*;
+import com.cliniccore.dto.UserRequest;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -26,8 +28,16 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @PostMapping
-    public User create(@RequestBody User user) {
-        return userService.save(user);
-    }
+@PostMapping
+public User create(@Valid @RequestBody UserRequest dto) {
+
+    User user = new User();
+    user.setName(dto.getName());
+    user.setEmail(dto.getEmail());
+    user.setPassword(dto.getPassword());
+    user.setRole(dto.getRole());
+
+    return userService.save(user);
+}
+
 }
