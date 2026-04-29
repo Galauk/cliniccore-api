@@ -10,6 +10,6 @@ services:
       - "5433:5432"
     volumes:
       - cliniccore_data:/var/lib/postgresql/data
-
+restart: unless-stopped
 volumes:
   cliniccore_data:
