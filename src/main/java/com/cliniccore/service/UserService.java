@@ -2,6 +2,7 @@ package com.cliniccore.service;
 
 import com.cliniccore.entity.User;
 import com.cliniccore.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.cliniccore.dto.UserResponse;
 import java.util.stream.Collectors;
@@ -15,6 +16,8 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+    private final BCryptPasswordEncoder passwordEncoder =
+            new BCryptPasswordEncoder();
 
     public List<UserResponse> findAll() {
         return userRepository.findAll()
@@ -24,6 +27,8 @@ public class UserService {
     }
 
     public User save(User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         return userRepository.save(user);
     }
 
