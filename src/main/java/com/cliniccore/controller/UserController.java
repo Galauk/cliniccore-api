@@ -1,11 +1,11 @@
 package com.cliniccore.controller;
 
-import com.cliniccore.entity.User;
-import com.cliniccore.service.UserService;
-import org.springframework.web.bind.annotation.*;
 import com.cliniccore.dto.UserRequest;
 import com.cliniccore.dto.UserResponse;
+import com.cliniccore.entity.User;
+import com.cliniccore.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,22 +20,24 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserResponse> findAll();
-
+    public List<UserResponse> findAll() {
+        return userService.findAll();
+    }
 
     @GetMapping("/{id}")
-    public UserResponse findById(...);
+    public UserResponse findById(@PathVariable Long id) {
+        return userService.findById(id);
+    }
 
-@PostMapping
-public User create(@Valid @RequestBody UserRequest dto) {
+    @PostMapping
+    public User create(@Valid @RequestBody UserRequest dto) {
 
-    User user = new User();
-    user.setName(dto.getName());
-    user.setEmail(dto.getEmail());
-    user.setPassword(dto.getPassword());
-    user.setRole(dto.getRole());
+        User user = new User();
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setRole(dto.getRole());
 
-    return userService.save(user);
-}
-
+        return userService.save(user);
+    }
 }
