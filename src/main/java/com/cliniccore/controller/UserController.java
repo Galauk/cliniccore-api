@@ -4,6 +4,7 @@ import com.cliniccore.entity.User;
 import com.cliniccore.service.UserService;
 import org.springframework.web.bind.annotation.*;
 import com.cliniccore.dto.UserRequest;
+import com.cliniccore.dto.UserResponse;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -19,14 +20,11 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> findAll() {
-        return userService.findAll();
-    }
+    public List<UserResponse> findAll();
+
 
     @GetMapping("/{id}")
-    public User findById(@PathVariable Long id) {
-        return userService.findById(id);
-    }
+    public UserResponse findById(...);
 
 @PostMapping
 public User create(@Valid @RequestBody UserRequest dto) {
